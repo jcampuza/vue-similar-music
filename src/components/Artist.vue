@@ -6,7 +6,7 @@
 		<div class="artist-social">
 			<a target="_blank" title="Search Youtube" :href="'https://www.youtube.com/results?search_query=' + artist.name"><i class="icon fa fa-youtube-square fa-2x"></i></a>
 			<a target="_blank" title="Find on Wikipedia" :href="'https://en.wikipedia.org/wiki/' + artist.name"><i class="icon fa fa-wikipedia-w fa-2x"></i></a>
-			<a target="_blank" title="View their subreddit" :href="'https://www.reddit.com/r/' + artist.name"><i class="icon fa fa-reddit fa-2x"></i></a>
+			<a target="_blank" title="View their subreddit" :href="'https://www.reddit.com/r/' + artist.name.split(' ').join('')"><i class="icon fa fa-reddit fa-2x"></i></a>
 			<a target="_blank" title="Find on Spotify" :href="'https://open.spotify.com/artist/' + artist.id"><i class="icon fa fa-spotify fa-2x"></i></a>
 		</div>
 		<div class="artist-info">
@@ -58,6 +58,10 @@
 			this.getTopTracks(this.artist.id);
 		},
 
+		watch: {
+			tracksReady: 'masonry'
+		},
+
 		methods: {
 			getWikiIntro: function(artistName) {
 				this.$http.jsonp('https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&exintro=&explaintext=&titles=' + this.artist.name).then((response) => {
@@ -68,6 +72,7 @@
 					this.wikiIntro = trimmedString;
 				})
 			},
+			
 			getTopTracks(id) {
 				this.$http.get('https://api.spotify.com/v1/artists/' + id + '/top-tracks?country=US').then((response) => {
 					//console.log(this.artist.name);
@@ -77,26 +82,28 @@
 				}, (response) => {
 					console.log("Unable to get top tracks for artist: " + artist.name);
 				})
-			}
-		}
+			},
 
+			masonry: function() {
+				var imgLoad = imagesLoaded( document.querySelector('.container') );
+				imgLoad.on('done', function() {
+  					console.log('all images loaded');
+  					new Masonry('.grid', {
+        				itemSelector: '.artist-container'
+      				})
+				})
+    		}
+		}
 	}
 </script>
 
 <style>
 
-.grid {
-	display: flex;
-	flex-flow: column wrap;
-	width: 100%;
-	height: 290vw;
-	margin: 0;
-}
-
 .artist-container {
 	text-align: center;
 	display: inline-block;
 	width: 30%;
+	height: auto;
 	margin: 1.6%;
 	margin-top: 10px;
 	background-color: #383838;
@@ -105,9 +112,23 @@
 	position: relative;
 }
 
+@media only screen and (max-width: 992px) {
+	.artist-container {
+		width: 47.5%;
+		margin-left: 1.25%;
+		margin-right: 1.25%;
+	}
+}
+
+@media only screen and (max-width: 768px) {
+	.artist-container {
+		width: 90%;
+		margin: 5%;
+	}
+}
+
 .artist-image {
 	width: 100%;
-	max-height: 250px;
 	overflow: hidden;
 	position: relative;
 }

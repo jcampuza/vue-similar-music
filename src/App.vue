@@ -8,12 +8,14 @@
     <h1 class="text-center">
       Similar Music
     </h1>
-    <form class="search-form center">
+    <form class="search-form center" v-on:submit.prevent="submit(searchString)">
       <input class="search-input" type="text" name="artistSearch" v-model="searchString" placeholder="Search for an artist/band">
       <button type="button" class="submit-button" v-on:click="submit(searchString)">Submit</button>
     </form>
-    <div class="row grid">
+    <div class="">
+      <div class="grid">
         <artist v-for="artist in artists" :artist="artist"></artist>
+      </div>
     </div>
   </div>
   </div>
@@ -39,9 +41,6 @@ export default {
     Artist
   },
 
-  computed: {
-  },
-
   methods: {
     submit: function(searchString) {
       console.log(searchString);
@@ -62,7 +61,7 @@ export default {
       this.$http.get('https://api.spotify.com/v1/artists/' + id + '/related-artists').then((response) => {
         this.artists = response.data.artists;
         console.log(response);  
-      })
+      });
     }
   }
 }
@@ -78,6 +77,7 @@ window.onload = function() {
     }
   });
 }
+
 </script>
 
 <style>
@@ -168,7 +168,6 @@ form {
 }
 
 .container {
-  width: 60%;
 }
 
 </style>

@@ -10,20 +10,20 @@
 			<a target="_blank" title="Find on Spotify" :href="'https://open.spotify.com/artist/' + artist.id"><i class="icon fa fa-spotify fa-2x"></i></a>
 		</div>
 		<div class="artist-info">
-			<p class="artist-name"> {{ artist.name }}</p>
+			<p class="artist-name"> {{ artist.name }}
+			<br><span class="artist-genre">{{ artist.genres[0] }}</span></p>
 			<p class="artist-desc"> {{ wikiIntro }}</p>
 		</div>
 		<div class="artist-player">
 			<div class="now-playing" v-if="tracksReady">
-				<p>{{ tracks[currentTrack].name }}</p>
-				<p>{{ tracks[currentTrack].album.name}}</p>
+				<p>{{ tracks[currentTrack].name }} - {{ tracks[currentTrack].album.name }}</p>
 			</div>
 			<div class="now-playing" v-if="!tracksReady">
 				<p>Loading...</p>
 			</div>
 			<audio v-if="tracksReady" controls :src="tracks[currentTrack].preview_url"></audio>
 			<div class="track-images">
-				<img v-for="track in tracks" :src="track.album.images[1].url">
+				<img v-for="track in tracks" :src="track.album.images[1].url" v-on:click="setCurrentTrack($index)">
 			</div>
 			
 		</div>
@@ -92,6 +92,10 @@
         				itemSelector: '.artist-container'
       				})
 				})
+    		},
+
+    		setCurrentTrack(index) {
+    			this.currentTrack = index;
     		}
 		}
 	}
@@ -110,6 +114,7 @@
 	color: #dedede;
 	vertical-align: top;
 	position: relative;
+	font-size: 1.2em;
 }
 
 @media only screen and (max-width: 992px) {
@@ -117,13 +122,15 @@
 		width: 47.5%;
 		margin-left: 1.25%;
 		margin-right: 1.25%;
+		font-size: 1.2em;
 	}
 }
 
 @media only screen and (max-width: 768px) {
 	.artist-container {
-		width: 90%;
-		margin: 5%;
+		width: 75%;
+		margin: 5% 12.5%;
+		font-size: 1.4em;
 	}
 }
 
@@ -152,6 +159,13 @@
 
 .artist-name {
 	font-size: 1.8em;
+	line-height: 1;
+}
+
+.artist-genre {
+	font-size: .8em;
+	font-weight: 300;
+	font-style: italic;
 }
 
 .artist-info {
@@ -166,6 +180,10 @@
 
 .artist-player audio {
 	width: 100%;
+}
+
+.artist-player .now-playing p {
+	padding: 10px 15px;
 }
 
 .track-images {

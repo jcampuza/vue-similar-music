@@ -8,7 +8,12 @@
       <h1 class="text-center">
         Similar Music
       </h1>
-      <router-view class="view" keep-alive transition transition-mode="out-in"></router-view>
+      <router-view 
+        class="view" 
+        keep-alive 
+        transition 
+        transition-mode="out-in">
+      </router-view>
     </div>
   </div>
 </template>
@@ -75,4 +80,13 @@ h1 {
 .container {
   margin-top: 50px;
 }
+
+.view {
+  transition: opacity .2s ease;
+}
+
+.view.v-enter, .view.v-leave{
+  opacity: 0;
+}
+
 </style>

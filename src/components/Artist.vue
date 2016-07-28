@@ -175,11 +175,15 @@
 
 .artist-player {
 	width: 100%;
-	background-color: #1d1717;
+	background-color: #2b2b2b;
+	position: relative;
 }
 
 .artist-player audio {
+	color: red;
 	width: 100%;
+	position: relative;
+	bottom: -6px;
 }
 
 .artist-player .now-playing p {
@@ -201,7 +205,7 @@
 }
 
 .icon:hover {
-	color: rgb(25,200,70);
+	color: #e81c4f;
 }
 
 </style>

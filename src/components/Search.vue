@@ -2,7 +2,7 @@
   <div>
     <form class="search-form center" v-on:submit.prevent="submit(searchString)">
       <input class="search-input" type="text" name="artistSearch" v-model="searchString" placeholder="Search for an artist/band">
-      <button type="button" class="submit-button" v-on:click="submit(searchString)">Submit</button>
+      <button type="button" class="submit-button" v-on:click="submit(searchString)"><i class="fa fa-search"></i></button>
     </form>
     <div class="grid">
       <artist v-for="artist in artists" :artist="artist"></artist>
@@ -77,42 +77,43 @@ form {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #efefef;
+  
 }
 
 .search-input {
   flex-grow: 2;
-  padding: 8px;
+  padding: 9px;
   font-size: 1.5em;
-  margin-right: 0;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
+  border: 1px solid #bbbbbb;
+  box-shadow: none;
+  box-sizing: border-box;
 }
 
 .search-input:focus {
-  outline: none;
-  outline-style: solid;
-  outline-width: 1px;
-  outline-color: rgb(25,70,20);
+  border: 1px solid #2b2b2b;
+  outline: 0;
 }
 
 .submit-button {
   position: relative;
   left: -1px;
-  padding: 8px;
+  padding: 9px;
   font-size: 1.5em;
-  margin: 0;
   background-color: #2b2b2b;
-  color: #727272;
+  color: #d1d1d1;
   border: 1px solid #727272;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+  width: 10%;
+  min-width: 55px;
+  transition: color .1s ease-out;
+  opacity: 0.8;
 }
 
 
 .search-input:focus + .submit-button {
-  background-color: #1a871c;
-  color: #dfdfdf;
+  opacity: 1;
+  color: #e81c4f;
 }
 
 .grid {

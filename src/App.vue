@@ -45,18 +45,28 @@ html {
 }
 
 body {
-  background-color: #dfdfdf;
+  background-color: #f5f5f5;
   font-size: 14px;
   line-height: 1.4;
-  color: #2c3e50;
+  color: #555;
   font-family: Source Sans Pro, Helvetica, sans-serif;
 }
 
+/* link styles */
 a {
   text-decoration: none;
-  color: rgb(25, 200, 70);
+  color: #e81c4f;
   font-size: 1em;
 }
+a:active, a:focus {
+  color: #e81c4f;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+  color: #e81c4f;
+}
+/* end links */
 
 nav {
   position: fixed;
@@ -73,7 +83,7 @@ nav a {
 }
 
 h1 {
-  color:rgb(25,200,70);
+  color: #e81c4f;
   text-outline: ;
 }
 
